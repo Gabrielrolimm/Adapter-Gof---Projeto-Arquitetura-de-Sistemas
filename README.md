@@ -20,21 +20,29 @@ Mais especificamente, este trabalho busca:
 - aplicar boas práticas de orientação a objetos;
 - demonstrar o padrão **Adapter** de forma realista;
 - servir como material de estudo para alunos que estão aprendendo **Design Patterns**;
-- mostrar como padrões como **SOLID** e **GRASP** podem aparecer no código.
+- mostrar como princípios como **SOLID** e **GRASP** podem aparecer no código.
 
 ---
 
-## Contexto do sistema
+## Funcionalidades atuais
 
-O sistema simula um **gerenciamento de biblioteca**, com operações como:
+O sistema simula um **gerenciamento de biblioteca** com interface em **menu no console**, permitindo:
 
-- cadastro de usuários;
-- cadastro de itens do acervo;
-- consulta de itens;
+- cadastro de alunos;
+- cadastro de professores;
+- cadastro de livros;
+- cadastro de periódicos;
+- listagem do acervo;
 - realização de empréstimos;
 - devolução de itens.
 
-A interface escolhida foi um **menu em console**, pois o foco do projeto está na **arquitetura e no código**, e não em interface gráfica.
+---
+
+## Interface escolhida
+
+A interface escolhida foi um **menu em console**, pois o foco do projeto está na **arquitetura, na organização do código e na aplicação dos padrões**, e não em interface gráfica.
+
+Essa decisão foi intencional para manter o projeto mais adequado ao contexto acadêmico e facilitar a demonstração do funcionamento do sistema.
 
 ---
 
@@ -63,25 +71,30 @@ No software, a lógica é a mesma:
 
 ### Como isso aparece neste projeto?
 
-Neste sistema, a aplicação trabalha com a abstração de repositório, como por exemplo:
+Neste sistema, a aplicação trabalha com abstrações de repositório, como por exemplo:
 
 - `RepositorioItem`
 - `RepositorioUsuario`
 - `RepositorioEmprestimo`
 
-Entretanto, a persistência real pode ocorrer em arquivo, memória ou outra tecnologia.
+Entretanto, a forma concreta de armazenamento pode variar.
 
 A classe `RepositorioItemArquivoAdapter` atua como **Adapter**, pois faz a ponte entre:
 
-- o que a aplicação espera usar (`RepositorioItem`);
-- e a forma concreta de armazenamento em arquivo.
+- o que a aplicação espera usar: a interface `RepositorioItem`;
+- e a forma concreta de persistência em arquivo `.csv`.
 
 Ou seja, o Adapter traduz:
 
 - **objetos do domínio → formato de arquivo**
 - **dados do arquivo → objetos do domínio**
 
-Assim, o restante do sistema não precisa conhecer os detalhes técnicos de leitura e escrita em arquivo.
+Além disso, o projeto também utiliza adapters em memória para usuários e empréstimos, como:
+
+- `RepositorioUsuarioMemoriaAdapter`
+- `RepositorioEmprestimoMemoriaAdapter`
+
+Essas implementações reforçam a ideia de desacoplamento entre a aplicação e os detalhes de persistência.
 
 ---
 
@@ -120,5 +133,3 @@ src/
         RepositorioItemArquivoAdapter.java
         RepositorioUsuarioMemoriaAdapter.java
         RepositorioEmprestimoMemoriaAdapter.java
-      persistence/
-        ItemRegistroCsv.java
