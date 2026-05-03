@@ -1,4 +1,9 @@
 package biblioteca.domain.policy;
 
-public class PoliticaEmprestimo {
+import biblioteca.domain.model.Usuario;
+
+public interface PoliticaEmprestimo {
+    int getPrazoEmDias();
+    int getLimiteItens();
+    boolean podeEmprestar(int quantidadeEmprestimosAtivos, Usuario usuario);
 }

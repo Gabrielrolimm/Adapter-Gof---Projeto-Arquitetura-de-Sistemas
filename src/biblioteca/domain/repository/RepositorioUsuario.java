@@ -1,4 +1,10 @@
 package biblioteca.domain.repository;
 
-public class RepositorioUsuario {
+import biblioteca.domain.model.Usuario;
+
+import java.util.Optional;
+
+public interface RepositorioUsuario {
+    void salvar(Usuario usuario);
+    Optional<Usuario> buscarPorId(String id);
 }
